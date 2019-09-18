@@ -44,11 +44,11 @@ public:
     ~VolumeFaderEffect();
 
     // VolumeFaderInterface:
-    float volume() const;
-    Phonon::VolumeFaderEffect::FadeCurve fadeCurve() const;
-    void setFadeCurve(Phonon::VolumeFaderEffect::FadeCurve fadeCurve);
-    void fadeTo(float volume, int fadeTime);
-    void setVolume(float v);
+    float volume() const override;
+    Phonon::VolumeFaderEffect::FadeCurve fadeCurve() const override;
+    void setFadeCurve(Phonon::VolumeFaderEffect::FadeCurve fadeCurve) override;
+    void fadeTo(float volume, int fadeTime) override;
+    void setVolume(float v) override;
     QPointer<MediaObject> mediaObject() { return m_mediaObject; }
 
 private slots:
