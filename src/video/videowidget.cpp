@@ -33,6 +33,10 @@
 
 #include "video/videomemorystream.h"
 
+#include <QWindow>
+
+#include <qpa/qplatformnativeinterface.h>
+
 namespace Phonon {
 namespace VLC {
 
@@ -235,6 +239,31 @@ void VideoWidget::handleAddToMedia(Media *media)
 #elif defined(Q_OS_UNIX)
         if (QGuiApplication::platformName().contains(QStringLiteral("xcb"), Qt::CaseInsensitive)) {
             m_player->setXWindow(winId());
+        } else if (QGuiApplication::platformName().contains(QStringLiteral("wayland"), Qt::CaseInsensitive)) {
+            QPlatformNativeInterface *qni = qApp->platformNativeInterface();
+            assert(qni != NULL);
+
+            // The widget must be backed by a native surface
+            setAttribute(Qt::WA_NativeWindow, true);
+
+            // Needed for wayland
+            setAttribute(Qt::WA_DontCreateNativeAncestors, true);
+            setAttribute(Qt::WA_PaintOnScreen, true);
+
+            QWindow *wnd = windowHandle();
+            assert(wnd);
+
+            wnd->create();
+
+            wl_display *display = static_cast<wl_display*>(
+                    qni->nativeResourceForIntegration(QByteArrayLiteral("wl_display")));
+            wl_surface *surface = static_cast<wl_surface*>(
+                    qni->nativeResourceForWindow(QByteArrayLiteral("surface"), wnd));
+            assert(display && surface);
+            m_player->setWlSurface(display, surface);
+
+            QSize currentSize = size();
+            m_player->setWlSurfaceSize(currentSize.width(), currentSize.height());
         } else {
             enableSurfacePainter();
         }

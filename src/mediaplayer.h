@@ -99,6 +99,14 @@ public:
     void setNsObject(void *drawable) { libvlc_media_player_set_nsobject(m_player, drawable); }
     void setXWindow(quint32 drawable) { libvlc_media_player_set_xwindow(m_player, drawable); }
     void setHwnd(void *drawable) { libvlc_media_player_set_hwnd(m_player, drawable); }
+    void setWlSurface(wl_display *display, wl_surface *surface)
+    {
+        libvlc_media_player_set_wl_surface(m_player, display, surface);
+    }
+    void setWlSurfaceSize(unsigned width, unsigned height)
+    {
+        libvlc_media_player_set_wl_surface_size(m_player, width, height);
+    }
 
     // Playback
     bool play();

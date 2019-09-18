@@ -47,6 +47,10 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX PHONON_VLC)
 # PVLC only uses static mimetype lists, they are created by cmake, hooray.
 include(MimeTypes.cmake)
 
+# QPlatformNativeInterface
+find_package(Qt5Gui)
+include_directories(${Qt5Gui_PRIVATE_INCLUDE_DIRS})
+
 add_subdirectory(src)
 
 if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")

@@ -35,6 +35,10 @@ typedef QWidget BaseWidget;
 
 #include "sinknode.h"
 
+/* Forward declaration for Wayland */
+struct wl_display;
+struct wl_surface;
+
 namespace Phonon {
 namespace VLC {
 
