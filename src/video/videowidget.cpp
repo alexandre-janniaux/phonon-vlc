@@ -254,16 +254,18 @@ void VideoWidget::handleAddToMedia(Media *media)
             assert(wnd);
 
             wnd->create();
+            assert(winId() != NULL);
 
             wl_display *display = static_cast<wl_display*>(
                     qni->nativeResourceForIntegration(QByteArrayLiteral("wl_display")));
             wl_surface *surface = static_cast<wl_surface*>(
                     qni->nativeResourceForWindow(QByteArrayLiteral("surface"), wnd));
-            assert(display && surface);
+            assert(display);
+            assert(surface);
             m_player->setWlSurface(display, surface);
 
             QSize currentSize = size();
-            m_player->setWlSurfaceSize(currentSize.width(), currentSize.height());
+            m_player->setWlSurfaceSize(300, 200);//currentSize.width(), currentSize.height());
         } else {
             enableSurfacePainter();
         }
