@@ -23,6 +23,7 @@
 #include <QtCore/QVariant>
 
 #include <vlc/libvlc.h>
+#include <vlc/libvlc_picture.h>
 #include <vlc/libvlc_media.h>
 
 #define INTPTR_PTR(x) reinterpret_cast<intptr_t>(x)
