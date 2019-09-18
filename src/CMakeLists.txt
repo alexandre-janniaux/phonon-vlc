@@ -61,6 +61,7 @@ endif()
 
 ecm_create_qm_loader(phonon_vlc_SRCS phonon_vlc_qt)
 add_library(phonon_vlc MODULE ${phonon_vlc_SRCS})
+set_property(TARGET phonon_vlc PROPERTY CXX_STANDARD 11)
 
 target_include_directories(phonon_vlc
     PRIVATE
