@@ -43,10 +43,10 @@ class NoDebugStream: public QIODevice
     // Q_OBJECT
 public:
     NoDebugStream() { open(WriteOnly); }
-    bool isSequential() const { return true; }
-    qint64 readData(char *, qint64) { return 0; /* eof */ }
-    qint64 readLineData(char *, qint64) { return 0; /* eof */ }
-    qint64 writeData(const char *, qint64 len) { return len; }
+    bool isSequential() const override { return true; }
+    qint64 readData(char *, qint64) override { return 0; /* eof */ }
+    qint64 readLineData(char *, qint64) override { return 0; /* eof */ }
+    qint64 writeData(const char *, qint64 len) override { return len; }
 } devnull;
 
 QDebug nullDebug()

@@ -66,12 +66,12 @@ public:
     explicit AudioDataOutput(QObject *parent);
     ~AudioDataOutput();
 
-    Phonon::AudioDataOutput *frontendObject() const
+    Phonon::AudioDataOutput *frontendObject() const override
     {
         return m_frontend;
     }
 
-    void setFrontendObject(Phonon::AudioDataOutput *frontend)
+    void setFrontendObject(Phonon::AudioDataOutput *frontend) override
     {
         m_frontend = frontend;
     }
@@ -100,7 +100,7 @@ public Q_SLOTS:
      * \see unlock()
      * \reimp
      */
-    void handleAddToMedia(Media *media);
+    void handleAddToMedia(Media *media) override;
 
 signals:
     void dataReady(const QMap<Phonon::AudioDataOutput::Channel, QVector<qint16> > &data);

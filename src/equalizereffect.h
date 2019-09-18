@@ -38,11 +38,11 @@ public:
     explicit EqualizerEffect(QObject *parent = 0);
     ~EqualizerEffect();
 
-    QList<EffectParameter> parameters() const;
-    QVariant parameterValue(const EffectParameter &parameter) const;
-    void setParameterValue(const EffectParameter &parameter, const QVariant &newValue);
+    QList<EffectParameter> parameters() const override;
+    QVariant parameterValue(const EffectParameter &parameter) const override;
+    void setParameterValue(const EffectParameter &parameter, const QVariant &newValue) override;
 
-    void handleConnectToMediaObject(MediaObject *mediaObject);
+    void handleConnectToMediaObject(MediaObject *mediaObject) override;
 
 private:
     libvlc_equalizer_t *m_equalizer;

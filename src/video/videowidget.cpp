@@ -64,31 +64,31 @@ public:
     VideoWidget *widget;
 
 private:
-    virtual void *lockCallback(void **planes)
+    void *lockCallback(void **planes) override
     {
         m_mutex.lock();
         planes[0] = (void *) m_plane.data();
         return 0;
     }
 
-    virtual void unlockCallback(void *picture,void *const *planes)
+    void unlockCallback(void *picture,void *const *planes) override
     {
         Q_UNUSED(picture);
         Q_UNUSED(planes);
         m_mutex.unlock();
     }
 
-    virtual void displayCallback(void *picture)
+    void displayCallback(void *picture) override
     {
         Q_UNUSED(picture);
         if (widget)
             widget->update();
     }
 
-    virtual unsigned formatCallback(char *chroma,
-                                    unsigned *width, unsigned *height,
-                                    unsigned *pitches,
-                                    unsigned *lines)
+    unsigned formatCallback(char *chroma,
+                            unsigned *width, unsigned *height,
+                            unsigned *pitches,
+                            unsigned *lines) override
     {
         qstrcpy(chroma, "RV32");
         unsigned bufferSize = setPitchAndLines(vlc_fourcc_GetChromaDescription(VLC_CODEC_RGB32),
@@ -100,7 +100,7 @@ private:
         return bufferSize;
     }
 
-    virtual void formatCleanUpCallback()
+    void formatCleanUpCallback() override
     {
         // Lazy delete the object to avoid callbacks from VLC after deletion.
         if (!widget)
