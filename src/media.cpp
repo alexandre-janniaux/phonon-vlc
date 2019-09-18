@@ -93,7 +93,7 @@ void Media::event_cb(const libvlc_event_t *event, void *opaque)
     case libvlc_MediaStateChanged:
     default:
         break;
-        QString msg = QString("Unknown event: ") + QString(libvlc_event_type_name(event->type));
+        QString msg = QString("Unknown event: ");
         Q_ASSERT_X(false, "event_cb", qPrintable(msg));
         break;
     }
