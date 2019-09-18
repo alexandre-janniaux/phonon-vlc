@@ -142,7 +142,7 @@ void MediaPlayer::togglePause()
 void MediaPlayer::stop()
 {
     m_doingPausedPlay = false;
-    libvlc_media_player_stop(m_player);
+    libvlc_media_player_stop_async(m_player);
 }
 
 qint64 MediaPlayer::length() const
@@ -157,7 +157,7 @@ qint64 MediaPlayer::time() const
 
 void MediaPlayer::setTime(qint64 newTime)
 {
-    libvlc_media_player_set_time(m_player, newTime);
+    libvlc_media_player_set_time(m_player, newTime, false);
 }
 
 bool MediaPlayer::isSeekable() const
@@ -396,7 +396,8 @@ void MediaPlayer::setCdTrack(int track)
 {
     if (!m_media)
         return;
-    libvlc_media_player_stop(m_player);
+    // TODO
+    libvlc_media_player_stop_async(m_player);
     m_media->setCdTrack(track);
     libvlc_media_player_set_media(m_player, *m_media);
     libvlc_media_player_play(m_player);
